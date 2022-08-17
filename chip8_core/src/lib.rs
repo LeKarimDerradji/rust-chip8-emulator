@@ -22,6 +22,7 @@ pub struct Emu {
 }
 
 impl Emu {
+    // Struct constructor
     pub fn new() -> Self {
         Self {
             pc: START_ADDR,
@@ -35,5 +36,17 @@ impl Emu {
             dt: 0,
             st: 0,
         }
+    }
+
+    // PC logic
+    fn push(&mut self, val: u16) {
+        self.stack[self.sp as usize] = val;
+        self.sp += 1;
+    }
+
+    fn pop(&mut self) -> u16 {
+        // TODO add extra handling here, if stack is empty then panic
+        self.sp -= 1;
+        self.stack[self.sp as usize];
     }
 }
