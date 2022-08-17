@@ -6,6 +6,7 @@ const NUM_REGS: usize = 16;
 const STACK_SIZE: usize = 16;
 
 const NUM_KEYS: usize = 16;
+const START_ADDR: u16 = 0x200;
 
 pub struct Emu {
     pc: u16,
@@ -23,7 +24,7 @@ pub struct Emu {
 impl Emu {
     pub fn new() -> Self {
         Self {
-            pc: 0x200,
+            pc: START_ADDR,
             ram: [0; NUM_REGS],
             screen: [false, SCREEN_HEIGHT * SCREEN_WIDTH],
             v_reg: [0, NUM_REGS],
