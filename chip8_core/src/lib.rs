@@ -1,3 +1,11 @@
+pub const SCREEN_WIDTH: usize = 64;
+pub const SCREEN_HEIGHT: usize = 32;
+
+const RAM_SIZE: usize = 4096;
+const NUM_REGS: usize = 16;
+const STACK_SIZE: usize = 16;
+const NUM_KEYS: usize = 16;
+const START_ADDR: u16 = 0x200;
 const FONTSET_SIZE: usize = 80;
 
 const FONTSET: [u8; FONTSET_SIZE] = [
@@ -19,16 +27,6 @@ const FONTSET: [u8; FONTSET_SIZE] = [
     0xF0, 0x80, 0xF0, 0x80, 0x80, // F
 ];
 
-pub const SCREEN_WIDTH: usize = 64;
-pub const SCREEN_HEIGHT: usize = 32;
-
-const RAM_SIZE: usize = 4096;
-const NUM_REGS: usize = 16;
-const STACK_SIZE: usize = 16;
-
-const NUM_KEYS: usize = 16;
-const START_ADDR: u16 = 0x200;
-
 pub struct Emu {
     pc: u16,
     ram: [u8; RAM_SIZE],
@@ -37,7 +35,7 @@ pub struct Emu {
     i_reg: u16,
     sp: u16,
     stack: [u16; STACK_SIZE],
-    keys: [bool; NUM_KEYS],
+    keys: [bool; NUM_KEYS as usize],
     dt: u8,
     st: u8,
 }
@@ -45,11 +43,11 @@ pub struct Emu {
 impl Emu {
     // Struct constructor
     pub fn new() -> Self {
-        Self {
+        let mut new_emu = Self {
             pc: START_ADDR,
-            ram: [0; NUM_REGS],
-            screen: [false, SCREEN_HEIGHT * SCREEN_WIDTH],
-            v_reg: [0, NUM_REGS],
+            ram: [0; RAM_SIZE],
+            screen: [false; SCREEN_WIDTH * SCREEN_HEIGHT],
+            v_reg: [0; NUM_REGS],
             i_reg: 0,
             sp: 0,
             stack: [0; STACK_SIZE],
@@ -57,7 +55,7 @@ impl Emu {
             dt: 0,
             st: 0,
         };
-        
+
         new_emu.ram[..FONTSET_SIZE].copy_from_slice(&FONTSET);
         new_emu
     }
@@ -71,6 +69,6 @@ impl Emu {
     fn pop(&mut self) -> u16 {
         // TODO add extra handling here, if stack is empty then panic
         self.sp -= 1;
-        self.stack[self.sp as usize];
+        return self.stack[self.sp as usize];
     }
 }
