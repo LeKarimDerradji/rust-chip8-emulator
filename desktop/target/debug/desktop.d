@@ -1,0 +1,1 @@
+/Users/Edward/Documents/Work/programming\ /personal/learning_rust/chip-8-emulator/desktop/target/debug/desktop: /Users/Edward/Documents/Work/programming\ /personal/learning_rust/chip-8-emulator/desktop/src/main.rs
