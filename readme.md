@@ -4,5 +4,3 @@
 
 see : https://chip-8.github.io/links/
 
-Here, we're doing it in rust, because it's fun to learn both rust and system programming. 
-
