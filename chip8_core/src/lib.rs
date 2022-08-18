@@ -29,13 +29,15 @@ const FONTSET: [u8; FONTSET_SIZE] = [
 
 pub struct Emu {
     pc: u16,
+    // We uses slices (array of typed fixed data) to emulate chip8 architechtural parts
+    // Ram is of type u8, fixed size of 4096 bits (512 bytes)
     ram: [u8; RAM_SIZE],
     screen: [bool; SCREEN_WIDTH * SCREEN_HEIGHT],
     v_reg: [u8; NUM_REGS],
     i_reg: u16,
     sp: u16,
     stack: [u16; STACK_SIZE],
-    keys: [bool; NUM_KEYS as usize],
+    keys: [bool; NUM_KEYS],
     dt: u8,
     st: u8,
 }
