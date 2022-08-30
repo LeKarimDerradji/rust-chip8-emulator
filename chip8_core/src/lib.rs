@@ -63,7 +63,6 @@ impl Emu {
     }
 
     pub fn reset(&mut self) {
-        
         self.pc = START_ADDR;
         self.ram = [0; RAM_SIZE];
         self.screen = [false; SCREEN_WIDTH * SCREEN_HEIGHT];
@@ -75,9 +74,20 @@ impl Emu {
         self.dt = 0;
         self.st = 0;
         self.ram[..FONTSET_SIZE].copy_from_slice(&FONTSET);
-
-        }
-
+    }
+    pub fn tick(&mut self) {
+        // Fetch
+        let op = self.fetch();
+        // Decode
+        // Execute
+    }
+    fn fetch(&mut self) -> u16 {
+        let higher_byte = self.ram[self.pc as usize] as u16;
+        let lower_byte = self.ram[(self.pc + 1) as usize] as u16;
+        let op = (higher_byte << 8) | lower_byte;
+        self.pc += 2;
+        op
+    }
     // PC logic
     fn push(&mut self, val: u16) {
         self.stack[self.sp as usize] = val;
